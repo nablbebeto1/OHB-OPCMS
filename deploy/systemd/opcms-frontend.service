@@ -1,0 +1,23 @@
+[Unit]
+Description=OHB OPCMS Web & Command Room Server (127.0.0.1:3100)
+After=network.target opcms-backend.service
+Wants=opcms-backend.service
+
+[Service]
+Type=simple
+User=opcms
+Group=opcms
+WorkingDirectory=/opt/ohb-polio-command/current
+EnvironmentFile=/opt/ohb-polio-command/.env
+Environment="NODE_ENV=production"
+Environment="PORT=3100"
+ExecStart=/usr/bin/npx tsx server.ts
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/ohb-polio-command
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@layer base {
+  html,
+  body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 700;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.leaflet-container {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  z-index: 1;
+}

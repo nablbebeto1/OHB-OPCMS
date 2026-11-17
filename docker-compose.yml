@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: opcms_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-opcms_db}
+      POSTGRES_USER: ${POSTGRES_USER:-opcms_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-CHANGE_ME_STRONG_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - opcms_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-opcms_user} -d ${POSTGRES_DB:-opcms_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: opcms_fastapi
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg2://${POSTGRES_USER:-opcms_user}:${POSTGRES_PASSWORD:-CHANGE_ME_STRONG_PASSWORD}@postgres:5432/${POSTGRES_DB:-opcms_db}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-CHANGE_ME_GENERATE_64_CHAR_HEX_SECRET}
+      CORS_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./public/assets/aistudio:/app/public/assets/aistudio:ro
+    command: >
+      sh -c "alembic upgrade head &&
+             python -m app.scripts.seed_from_csv /app/public/assets/aistudio/Oromia_Region___Round_1_nOPV2_and_bOPV2_SIA_Campaign_Daily_Administrative_Report___November_2026__1__47c4f776.csv &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  opcms_pgdata:

@@ -1,0 +1,70 @@
+from app.models.auth import Permission, Role, RolePermission, User
+from app.models.campaign import (
+    AdministrativeTarget,
+    CalculationConfig,
+    Campaign,
+    CampaignDay,
+    SecurityAffectedSettlement,
+    SecurityDailyReport,
+)
+from app.models.geography import Region, Woreda, Zone
+from app.models.governance import (
+    AuditLog,
+    ExcelImportHistory,
+    FormulaDiscrepancy,
+    Notification,
+    ReportSubmissionHistory,
+)
+from app.models.monitoring import (
+    CampaignAlert,
+    CommandDisplaySession,
+    GisBoundaryLayer,
+    NotificationDispatchLog,
+    NotificationProviderConfig,
+    PerformanceThresholdConfig,
+)
+from app.models.reporting import (
+    AfpAefiAlert,
+    AgeGroupVaccinationRecord,
+    DailyVaccinationReport,
+    SocialMobilizationRecord,
+    UnderVaccinatedRecord,
+    VaccinationTeam,
+    VaccineUtilizationRecord,
+    ZeroDoseRecord,
+)
+
+__all__ = [
+    "Region",
+    "Zone",
+    "Woreda",
+    "Role",
+    "Permission",
+    "RolePermission",
+    "User",
+    "Campaign",
+    "CampaignDay",
+    "AdministrativeTarget",
+    "CalculationConfig",
+    "SecurityAffectedSettlement",
+    "SecurityDailyReport",
+    "DailyVaccinationReport",
+    "AgeGroupVaccinationRecord",
+    "VaccineUtilizationRecord",
+    "AfpAefiAlert",
+    "SocialMobilizationRecord",
+    "ZeroDoseRecord",
+    "UnderVaccinatedRecord",
+    "VaccinationTeam",
+    "ReportSubmissionHistory",
+    "Notification",
+    "AuditLog",
+    "ExcelImportHistory",
+    "FormulaDiscrepancy",
+    "CampaignAlert",
+    "CommandDisplaySession",
+    "PerformanceThresholdConfig",
+    "GisBoundaryLayer",
+    "NotificationProviderConfig",
+    "NotificationDispatchLog",
+]

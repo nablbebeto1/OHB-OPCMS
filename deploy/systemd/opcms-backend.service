@@ -1,0 +1,21 @@
+[Unit]
+Description=OHB OPCMS FastAPI Backend Service (127.0.0.1:8100)
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=opcms
+Group=opcms
+WorkingDirectory=/opt/ohb-polio-command/current/backend
+EnvironmentFile=/opt/ohb-polio-command/.env
+ExecStart=/opt/ohb-polio-command/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8100 --workers 2
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/ohb-polio-command /var/log
+
+[Install]
+WantedBy=multi-user.target
